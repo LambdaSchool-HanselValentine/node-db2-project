@@ -1,12 +1,5 @@
 const db = require("../../data/db-config");
 
-module.exports = {
-	getAll,
-	getById,
-	create,
-	getByVin,
-};
-
 const getAll = async () => {
 	const cars = await db("cars");
 	console.log(cars);
@@ -19,12 +12,18 @@ const getById = async (id) => {
 };
 
 const create = async (car) => {
-	const [id] = await db("cars").insert(car);
-	const newCar = await getById(id);
+	const newCar = await db("cars").insert(car);
 	return newCar;
 };
 
-// getbyname for the middleware
+// getbyvin for the middleware
 const getByVin = (vin) => {
 	return db.first("*").from("cars").where({ vin });
+};
+
+module.exports = {
+	getAll,
+	getById,
+	create,
+	getByVin,
 };
