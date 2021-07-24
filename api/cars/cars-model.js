@@ -4,6 +4,7 @@ module.exports = {
 	getAll,
 	getById,
 	create,
+	getByVin,
 };
 
 const getAll = async () => {
@@ -21,4 +22,9 @@ const create = async (car) => {
 	const [id] = await db("cars").insert(car);
 	const newCar = await getById(id);
 	return newCar;
+};
+
+// getbyname for the middleware
+const getByVin = (vin) => {
+	return db.first("*").from("cars").where({ vin });
 };
